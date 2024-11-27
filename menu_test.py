@@ -1,92 +1,71 @@
 import pandas as pd
 
-# Menu Item Class
-class MenuItem:
-    def __init__(self, name, category, price, size=None):
-        self.name = name
-        self.category = category
-        self.price = price
-        self.size = size
-
-    def get_description(self):
-        return f"{self.name} ({self.category}) - ${self.price:.2f} {f'Size: {self.size}' if self.size else ''}"
-
-# Load Menu from CSV
+# Load the menu data from the CSV file
 def load_menu(file_path):
-    try:
-        data = pd.read_csv(file_path)
-        # Normalize column names
-        data.columns = data.columns.str.strip().str.title()
-        print("\nLoaded Menu Columns:", data.columns)  # Debug: Check cleaned column names
-        return data
-    except FileNotFoundError:
-        print("Error: The menu file was not found. Ensure the CSV file is in the correct directory.")
-        exit()
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-        exit()
+    return pd.read_csv(file_path)
 
-# Show Categories
+# Show the available categories
 def show_categories(menu_data):
-    categories = menu_data["Category"].unique()
-    print("\nAvailable Categories:")
+    """
+    Display available categories from the menu.
+    """
+    categories = menu_data['Category'].unique()
+    print("Available Categories:")
     for i, category in enumerate(categories, 1):
         print(f"{i}. {category}")
     return categories
 
-# Show Items in a Category
+# Show items within a selected category
 def show_items_in_category(menu_data, category):
-    print(f"\nItems in {category}:")
-    items = menu_data[menu_data["Category"] == category]
-    for i, row in items.iterrows():
-        print(f"{i + 1}. {row['Name']} (Size: {row.get('Size', 'N/A')}, Price: ${row['Price']:.2f})")
-    return items
+    """
+    Display items within a selected category and allow the user to choose.
+    """
+    # Filter items by the selected category
+    category_items = menu_data[menu_data['Category'] == category]
+    
+    if category_items.empty:
+        print("No items available in this category!")
+        return None
 
-# Main Program
+    print(f"Items in {category}:")
+    for i, row in category_items.iterrows():
+        print(f"{i + 1}. {row['Name']} (Size: {row['Size'] if not pd.isna(row['Size']) else 'N/A'}, Price: ${row['Price']:.2f})")
+
+    # Let user select an item by its index
+    try:
+        item_selection = int(input("Select an item by number: "))
+        # Validate if the selection is within bounds
+        if 1 <= item_selection <= len(category_items):
+            selected_item = category_items.iloc[item_selection - 1]
+            print(f"You selected: {selected_item['Name']}, priced at ${selected_item['Price']:.2f}")
+            return selected_item
+        else:
+            print("Invalid item selection!")
+            return None
+    except ValueError:
+        print("Please enter a valid number!")
+        return None
+
+# Main function to drive the program
 def main():
-    file_path = "ORdering system  - Sheet1.csv"  # Adjust file path if needed
+    # Load the menu from the CSV
+    file_path = 'path_to_your_csv_file.csv'  # Change to your actual file path
     menu_data = load_menu(file_path)
 
-    while True:
-        print("\nWelcome to the Restaurant Menu System!")
-        print("1. View Categories")
-        print("2. Exit")
-        choice = input("Enter your choice: ")
+    # Show available categories
+    categories = show_categories(menu_data)
 
-        if choice == "1":
-            categories = show_categories(menu_data)
-            try:
-                category_choice = int(input("\nSelect a category by number: ")) - 1
-                if 0 <= category_choice < len(categories):
-                    selected_category = categories[category_choice]
-                    items_in_category = show_items_in_category(menu_data, selected_category)
-
-                    # Select an item within the category
-                    try:
-                        item_choice = int(input("\nSelect an item by number: ")) - 1
-                        if 0 <= item_choice < len(items_in_category):
-                            selected_item = items_in_category.iloc[item_choice]
-                            item_obj = MenuItem(
-                                name=selected_item["Name"],
-                                category=selected_item["Category"],
-                                price=selected_item["Price"],
-                                size=selected_item.get("Size", None),
-                            )
-                            print(f"\nYou selected: {item_obj.get_description()}")
-                        else:
-                            print("Invalid item selection!")
-                    except ValueError:
-                        print("Please enter a valid number.")
-                else:
-                    print("Invalid category selection!")
-            except ValueError:
-                print("Please enter a valid number.")
-        elif choice == "2":
-            print("Thank you for visiting. Goodbye!")
-            break
+    # Ask user to choose a category
+    try:
+        category_selection = int(input("Select a category by number: "))
+        if 1 <= category_selection <= len(categories):
+            selected_category = categories[category_selection - 1]
+            # Show items in the selected category
+            selected_item = show_items_in_category(menu_data, selected_category)
         else:
-            print("Invalid choice, please try again.")
+            print("Invalid category selection!")
+    except ValueError:
+        print("Please enter a valid number!")
 
-# Run the Program
 if __name__ == "__main__":
     main()
