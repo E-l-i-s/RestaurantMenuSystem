@@ -1,19 +1,32 @@
 import pandas as pd
-from menu_item import MenuItem
 
-# Load the menu from the CSV file
+# Menu Item Class
+class MenuItem:
+    def __init__(self, name, category, price, size=None):
+        self.name = name
+        self.category = category
+        self.price = price
+        self.size = size
+
+    def get_description(self):
+        return f"{self.name} ({self.category}) - ${self.price:.2f} {f'Size: {self.size}' if self.size else ''}"
+
+# Load Menu from CSV
 def load_menu(file_path):
     try:
         data = pd.read_csv(file_path)
+        # Normalize column names
+        data.columns = data.columns.str.strip().str.title()
+        print("\nLoaded Menu Columns:", data.columns)  # Debug: Check cleaned column names
         return data
     except FileNotFoundError:
-        print("Error: The menu file was not found. Ensure the CSV file is in the same directory.")
+        print("Error: The menu file was not found. Ensure the CSV file is in the correct directory.")
         exit()
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         exit()
 
-# Display categories
+# Show Categories
 def show_categories(menu_data):
     categories = menu_data["Category"].unique()
     print("\nAvailable Categories:")
@@ -21,17 +34,17 @@ def show_categories(menu_data):
         print(f"{i}. {category}")
     return categories
 
-# Display items in a selected category
+# Show Items in a Category
 def show_items_in_category(menu_data, category):
     print(f"\nItems in {category}:")
     items = menu_data[menu_data["Category"] == category]
     for i, row in items.iterrows():
-        print(f"{i + 1}. {row['Name']} (Size: {row['size']}, Price: ${row['Price']:.2f})")
+        print(f"{i + 1}. {row['Name']} (Size: {row.get('Size', 'N/A')}, Price: ${row['Price']:.2f})")
     return items
 
-# Main program
+# Main Program
 def main():
-    file_path = "ORdering system  - Sheet1.csv"  # Ensure the CSV file is in the same directory
+    file_path = "ORdering system  - Sheet1.csv"  # Adjust file path if needed
     menu_data = load_menu(file_path)
 
     while True:
@@ -48,7 +61,7 @@ def main():
                     selected_category = categories[category_choice]
                     items_in_category = show_items_in_category(menu_data, selected_category)
 
-                    # Allow user to select an item within the category
+                    # Select an item within the category
                     try:
                         item_choice = int(input("\nSelect an item by number: ")) - 1
                         if 0 <= item_choice < len(items_in_category):
@@ -57,7 +70,7 @@ def main():
                                 name=selected_item["Name"],
                                 category=selected_item["Category"],
                                 price=selected_item["Price"],
-                                size=selected_item["size"],
+                                size=selected_item.get("Size", None),
                             )
                             print(f"\nYou selected: {item_obj.get_description()}")
                         else:
@@ -74,6 +87,6 @@ def main():
         else:
             print("Invalid choice, please try again.")
 
-# Run the program
+# Run the Program
 if __name__ == "__main__":
     main()
