@@ -7,5 +7,7 @@ class MenuItem:
 
     def get_description(self):
         """Returns a description of the item."""
-        description = f"Name: {self.name}, Category: {self.category}, Size: {self.size}, Price: ${self.price:.2f}"
+        description = f"Name: {self.name}, Category: {self.category}, Price: ${self.price:.2f}"
+        if self.size:
+            description += f", Size: {self.size}"
         return description
