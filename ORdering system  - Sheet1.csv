@@ -1,0 +1,59 @@
+Category,Name ,size ,Price 
+Starters,Borscht,Small,15
+Starters,Caesar Salad,Small,15
+Starters,Caesar Salad,Medium,15
+Starters,French Fries,Small,10
+Starters,Onion Rings,Small,12
+Starters,Onion Rings,Medium,15
+Starters,Spring Rolls,Small,14
+Starters,Spring Rolls,Medium,18
+Starters,Grilled Vegetables,Small,16
+Starters,Grilled Vegetables,Medium,20
+Starters,Tomato Soup,Small,13
+Starters,Hummus with Pita,Small,14
+Starters,Hummus with Pita,Large,20
+Starters,Stuffed Mushrooms,Small,16
+Starters,Stuffed Mushrooms,Medium,19
+Starters,Caprese Salad,Small,17
+Starters,Caprese Salad,Medium,22
+Main Course,Grilled Chicken,Medium,35
+Main Course,Spaghetti Carbonara,Medium,30
+Main Course,Beef Steak,Medium,60
+Main Course,Fish & Chips,Medium,35
+Main Course,Lasagna,Medium,40
+Main Course,Chicken Alfredo,Medium,38
+Main Course,Veggie Burger,Medium,25
+Main Course,Grilled Salmon,Medium,50
+Main Course,Roast Beef,Medium,45
+Main Course,Chicken Kiev,Medium,40
+Main Course,Pulled Pork Sandwich,Medium,30
+Main Course,Shrimp Pasta,Medium,35
+Sides,Mashed Potatoes,Small,12
+Sides,Mashed Potatoes,Medium,18
+Sides,Steamed Vegetables,Small,13
+Sides,Steamed Vegetables,Medium,17
+Sides,Rice Pilaf,Small,14
+Sides,Rice Pilaf,Medium,20
+Sides,Garlic Bread,Small,9
+Sides,Garlic Bread,Large,13
+Sides,Coleslaw,Small,10
+Sides,Coleslaw,Medium,15
+Drinks,Espresso,Small,10
+Drinks,Cappuccino,Medium,18
+Drinks,Cappuccino,Large,22
+Drinks,Latte,Medium,4
+Drinks,Latte,Large,2
+Drinks,Iced Tea,Medium,12
+Drinks,Iced Tea,Large,15
+Drinks,Fresh Juice,Small,15
+Drinks,Fresh Juice,Large,20
+Desserts,Chocolate Cake,Slice,18
+Desserts,Chocolate Cake,Whole,35
+Desserts,Cheesecake,Slice,2
+Desserts,Cheesecake,Whole,4
+Desserts,Tiramisu,Small,18
+Desserts,Tiramisu,Large,25
+Desserts,Ice Cream,Single,12
+Desserts,Ice Cream,Double,15
+Desserts,Fruit Salad,Small,13
+Desserts,Fruit Salad,Large,10
