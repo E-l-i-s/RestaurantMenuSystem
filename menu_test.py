@@ -9,7 +9,7 @@ def show_categories(menu_data):
     return categories
 
 def show_items_in_category(menu_data, selected_category):
-    items_in_category = menu_data[menu_data['Category'] == selected_category]
+    items_in_category = menu_data[menu_data['Category'] == selected_category].reset_index(drop=True)
     print(f"\nItems in {selected_category}:")
     for i, row in items_in_category.iterrows():
         print(f"{i + 1}. {row['Name']} (Price: ${row['Price']:.2f})")
@@ -27,15 +27,27 @@ def main():
         categories = show_categories(menu_data)
 
         # User selects a category
-        selected_category_index = int(input("\nSelect a category by number: ")) - 1
-        selected_category = categories[selected_category_index]
+        try:
+            selected_category_index = int(input("\nSelect a category by number: ")) - 1
+            if selected_category_index < 0 or selected_category_index >= len(categories):
+                raise ValueError("Invalid category selection.")
+            selected_category = categories[selected_category_index]
+        except (ValueError, IndexError):
+            print("Invalid input. Please enter a valid category number.")
+            continue
 
         # Show items in the selected category
         items_in_category = show_items_in_category(menu_data, selected_category)
 
         # User selects an item
-        selected_item_index = int(input("\nSelect an item by number: ")) - 1
-        selected_item = items_in_category.iloc[selected_item_index]
+        try:
+            selected_item_index = int(input("\nSelect an item by number: ")) - 1
+            if selected_item_index < 0 or selected_item_index >= len(items_in_category):
+                raise ValueError("Invalid item selection.")
+            selected_item = items_in_category.iloc[selected_item_index]
+        except (ValueError, IndexError):
+            print("Invalid input. Please enter a valid item number.")
+            continue
 
         # Add to final price and order details
         item_name = selected_item['Name']
