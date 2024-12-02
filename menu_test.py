@@ -12,30 +12,52 @@ def show_items_in_category(menu_data, selected_category):
     items_in_category = menu_data[menu_data['Category'] == selected_category]
     print(f"\nItems in {selected_category}:")
     for i, row in items_in_category.iterrows():
-        print(f"{i + 1}. {row['Name']} (Size: {row['Size'] if pd.notna(row['Size']) else 'N/A'}, Price: ${row['Price']:.2f})")
+        print(f"{i + 1}. {row['Name']} (Price: ${row['Price']:.2f})")
     return items_in_category
 
 def main():
     # Load menu data
     menu_data = load_menu('ORdering system  - Sheet1.csv')  # Ensure the correct CSV path is here
 
-    # Show available categories
-    categories = show_categories(menu_data)
+    final_price = 0.0
+    order_details = []
 
-    # User selects a category
-    selected_category_index = int(input("\nSelect a category by number: ")) - 1
-    selected_category = categories[selected_category_index]
+    while True:
+        # Show available categories
+        categories = show_categories(menu_data)
 
-    # Show items in the selected category
-    items_in_category = show_items_in_category(menu_data, selected_category)
+        # User selects a category
+        selected_category_index = int(input("\nSelect a category by number: ")) - 1
+        selected_category = categories[selected_category_index]
 
-    # User selects an item
-    selected_item_index = int(input("\nSelect an item by number: ")) - 1
-    selected_item = items_in_category.iloc[selected_item_index]
+        # Show items in the selected category
+        items_in_category = show_items_in_category(menu_data, selected_category)
 
-    print(f"\nYou selected: {selected_item['Name']}")
-    print(f"Price: ${selected_item['Price']:.2f}")
-    print(f"Description: {selected_item['Name']} ({selected_category}): {selected_item['Ingredients'] if pd.notna(selected_item['Ingredients']) else 'No ingredients specified'}")
+        # User selects an item
+        selected_item_index = int(input("\nSelect an item by number: ")) - 1
+        selected_item = items_in_category.iloc[selected_item_index]
+
+        # Add to final price and order details
+        item_name = selected_item['Name']
+        item_price = selected_item['Price']
+        final_price += item_price
+        order_details.append(f"{item_name} (${item_price:.2f})")
+
+        print(f"\nYou selected: {item_name}")
+        print(f"Price: ${item_price:.2f}")
+        print(f"Current total: ${final_price:.2f}")
+
+        # Ask if user wants to continue ordering
+        more_order = input("\nWould you like to order anything else? (yes/no): ").strip().lower()
+        if more_order == 'no':
+            break
+
+    # Final order summary
+    print("\nYour Order Summary:")
+    for detail in order_details:
+        print(f"- {detail}")
+    print(f"Final Price: ${final_price:.2f}")
+    print("Thank you for your order!")
 
 if __name__ == "__main__":
     main()
