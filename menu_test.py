@@ -46,7 +46,6 @@ def show_categories(menu_data):
         print(f"{i}. {category}")
     return categories
 
-
 def show_items_in_category(menu_data, selected_category, stop_list):
     items_in_category = menu_data[menu_data['Category'] == selected_category]
     print(f"\nItems in {selected_category}:")
