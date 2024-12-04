@@ -50,13 +50,15 @@ def show_categories(menu_data):
 def show_items_in_category(menu_data, selected_category, stop_list):
     items_in_category = menu_data[menu_data['Category'] == selected_category]
     print(f"\nItems in {selected_category}:")
+    index = 1
     for i, row in items_in_category.iterrows():
         item_name = row['Name']
         # Check if item is out of stock
         if item_name in stop_list:
-            print(f"{i + 1}. {item_name} (Out of Stock)")
+            print(f"{index + 1}. {item_name} (Out of Stock)")
         else:
-            print(f"{i + 1}. {item_name} (Size: {row['Size'] if pd.notna(row['Size']) else 'N/A'}, Price: ${row['Price']:.2f})")
+            print(f"{index + 1}. {item_name} (Size: {row['Size'] if pd.notna(row['Size']) else 'N/A'}, Price: ${row['Price']:.2f})")
+        index += 1 
     return items_in_category
 
 
