@@ -3,11 +3,9 @@ import pandas as pd
 def load_menu(file_path):
     """Load the menu data from CSV."""
     try:
-        print(f"Loading menu from: {file_path}")
         # Specify the delimiter as comma
         menu_data = pd.read_csv(file_path)
         menu_data.columns = menu_data.columns.str.strip()  # Clean column names by stripping spaces
-        print("Columns in menu:", menu_data.columns)  # Debugging: Show actual column names
         return menu_data
     except FileNotFoundError:
         print(f"Error: The menu file could not be found at {file_path}. Please check the file path.")
@@ -20,16 +18,13 @@ def load_menu(file_path):
 def load_stop_list(file_path):
     """Load the stop list (out of stock items) from CSV."""
     try:
-        print(f"Loading stop list from: {file_path}")
         # Specify the delimiter as comma
         stop_list = pd.read_csv(file_path)
         stop_list.columns = stop_list.columns.str.strip()  # Clean column names by stripping spaces
-        print("Columns in stop list:", stop_list.columns)  # Debugging: Show actual column names
         if 'Name' not in stop_list.columns:
             print(f"Error: The stop list CSV file does not contain expected column ('Name').")
             return []
         stop_list_names = stop_list['Name'].str.strip().tolist()  # Get list of out-of-stock item names
-        print(f"Stop list loaded: {stop_list_names}")  # Debugging: Show stop list contents
         return stop_list_names
     except FileNotFoundError:
         print(f"Error: The stop list file could not be found at {file_path}. Please check the file path.")
