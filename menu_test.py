@@ -35,6 +35,15 @@ def load_stop_list(file_path):
 
 
 def show_categories(menu_data):
+    """
+    Display unique categories from a menu data dataframe.
+
+    Args:
+        menu_data (pd.DataFrame): A pandas dataframe containing a 'Category' column.
+
+    Returns:
+        np.ndarray: A list of unique category names as a numpy array.
+    """
     categories = menu_data['Category'].unique()
     print("Available Categories:")
     for i, category in enumerate(categories, 1):
@@ -114,3 +123,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+#take away or dine 
+#email adress
+#Cash or card
