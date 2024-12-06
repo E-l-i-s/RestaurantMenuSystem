@@ -16,7 +16,16 @@ def load_menu(file_path):
 
 
 def load_stop_list(file_path):
-    """Load the stop list (out of stock items) from CSV."""
+    """
+    Loads a list of out-of-stock items from a CSV file.
+
+    Args:
+        file_path (str): Path to the CSV file.
+
+    Returns:
+        list: List of out-of-stock item names, or an empty list if an error occurs.
+    """
+
     try:
         # Specify the delimiter as comma
         stop_list = pd.read_csv(file_path)
