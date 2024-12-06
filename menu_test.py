@@ -94,6 +94,19 @@ def show_items_in_category(menu_data, selected_category, stop_list):
 
 
 def main():
+    """
+    Main function for the ordering system. It loads the menu and stop list,
+    displays categories and items, allows the user to place an order, and calculates
+    the total price. The program continues until the user chooses to finish their order.
+
+    Steps:
+        - Load menu data and stop list.
+        - Display available categories and items.
+        - Allow the user to select items and check stock status.
+        - Calculate the total price of the order.
+        - Ask if the user wants to order more items.
+        - Display the final total and thank the user.
+    """
     menu_file = 'ORdering system  - Sheet1.csv'  # Correct menu CSV file name
     stop_list_file = 'stop_list_for_the_ordering_system.csv'  # Correct stop list CSV file name
 
