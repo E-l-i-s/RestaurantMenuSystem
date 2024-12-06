@@ -51,6 +51,18 @@ def show_categories(menu_data):
     return categories
 
 def show_items_in_category(menu_data, selected_category, stop_list):
+    """
+    Displays items from the selected category with their sizes, prices, and stock status.
+
+    Arguments:
+        menu_data (pd.DataFrame): DataFrame with 'Category', 'Name', 'Size', and 'Price'.
+        selected_category (str): Category to display items from.
+        stop_list (list): List of out-of-stock items.
+
+    Returns:
+        pd.DataFrame: Items in the selected category.
+
+    """
     items_in_category = menu_data[menu_data['Category'] == selected_category]
     print(f"\nItems in {selected_category}:")
     index = 1
