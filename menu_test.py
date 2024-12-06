@@ -1,7 +1,15 @@
 import pandas as pd
 
 def load_menu(file_path):
-    """Load the menu data from CSV."""
+    """
+    Loads menu data from a CSV file.
+
+    Args:
+        file_path (str): Path to the CSV file.
+
+    Returns:
+        pd.DataFrame: The menu data, or an empty DataFrame if an error occurs.
+    """
     try:
         # Specify the delimiter as comma
         menu_data = pd.read_csv(file_path)
@@ -25,7 +33,6 @@ def load_stop_list(file_path):
     Returns:
         list: List of out-of-stock item names, or an empty list if an error occurs.
     """
-
     try:
         # Specify the delimiter as comma
         stop_list = pd.read_csv(file_path)
