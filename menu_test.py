@@ -1,4 +1,5 @@
 import pandas as pd
+import re  # Для проверки правильности введенной электронной почты
 
 def load_menu(file_path):
     """ 
@@ -110,6 +111,23 @@ def ask_payment_method(total_amount):
             print("Invalid input. Please enter 'Card' or 'Cash'.")
 
 
+def ask_email():
+    """
+    Ask the user for their email address. Ensures it's a valid email format.
+    
+    Returns:
+        str: Validated email address.
+    """
+    while True:
+        email = input("Please enter your email address: ").strip()
+        # Regular expression for basic email validation
+        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        if re.match(email_regex, email):
+            return email
+        else:
+            print("Invalid email address. Please enter a valid email.")
+
+
 def main():
     """
     Main function for the ordering system. It loads the menu and stop list,
@@ -167,13 +185,20 @@ def main():
             elif more_order == 'no':
                 # After finalizing the order, ask for payment method
                 payment_method = ask_payment_method(total_price)
+
+                # Ask for user's email
+                email = ask_email()
+
+                # Show order confirmation
                 print(f"Thank you for your order! You chose to pay by {payment_method.capitalize()}.")
+                print(f"A receipt will be sent to {email}.")
                 return
             else:
                 print("Please answer with 'Yes' or 'No' only.")
 
 if __name__ == "__main__":
     main()
+
 
 
 #take away or dine 
