@@ -1,19 +1,18 @@
 import pandas as pd
 
 def load_menu(file_path):
-    """
+    """ 
     Loads menu data from a CSV file.
-
+    
     Args:
         file_path (str): Path to the CSV file.
-
+    
     Returns:
         pd.DataFrame: The menu data, or an empty DataFrame if an error occurs.
     """
     try:
-        # Specify the delimiter as comma
         menu_data = pd.read_csv(file_path)
-        menu_data.columns = menu_data.columns.str.strip()  # Clean column names by stripping spaces
+        menu_data.columns = menu_data.columns.str.strip()  # Clean column names
         return menu_data
     except FileNotFoundError:
         print(f"Error: The menu file could not be found at {file_path}. Please check the file path.")
@@ -24,19 +23,18 @@ def load_menu(file_path):
 
 
 def load_stop_list(file_path):
-    """
+    """ 
     Loads a list of out-of-stock items from a CSV file.
-
+    
     Args:
         file_path (str): Path to the CSV file.
-
+    
     Returns:
         list: List of out-of-stock item names, or an empty list if an error occurs.
     """
     try:
-        # Specify the delimiter as comma
         stop_list = pd.read_csv(file_path)
-        stop_list.columns = stop_list.columns.str.strip()  # Clean column names by stripping spaces
+        stop_list.columns = stop_list.columns.str.strip()  # Clean column names
         if 'Name' not in stop_list.columns:
             print(f"Error: The stop list CSV file does not contain expected column ('Name').")
             return []
@@ -51,12 +49,12 @@ def load_stop_list(file_path):
 
 
 def show_categories(menu_data):
-    """
+    """ 
     Display unique categories from a menu data dataframe.
-
+    
     Args:
         menu_data (pd.DataFrame): A pandas dataframe containing a 'Category' column.
-
+    
     Returns:
         np.ndarray: A list of unique category names as a numpy array.
     """
@@ -66,18 +64,18 @@ def show_categories(menu_data):
         print(f"{i}. {category}")
     return categories
 
-def show_items_in_category(menu_data, selected_category, stop_list):
-    """
-    Displays items from the selected category with their sizes, prices, and stock status.
 
-    Arguments:
+def show_items_in_category(menu_data, selected_category, stop_list):
+    """ 
+    Displays items from the selected category with their sizes, prices, and stock status.
+    
+    Args:
         menu_data (pd.DataFrame): DataFrame with 'Category', 'Name', 'Size', and 'Price'.
         selected_category (str): Category to display items from.
         stop_list (list): List of out-of-stock items.
-
+    
     Returns:
         pd.DataFrame: Items in the selected category.
-
     """
     items_in_category = menu_data[menu_data['Category'] == selected_category]
     print(f"\nItems in {selected_category}:")
@@ -89,8 +87,27 @@ def show_items_in_category(menu_data, selected_category, stop_list):
             print(f"{index}. {item_name} (Out of Stock)")
         else:
             print(f"{index}. {item_name} (Size: {row['Size'] if pd.notna(row['Size']) else 'N/A'}, Price: ${row['Price']:.2f})")
-        index += 1 
+        index += 1
     return items_in_category
+
+
+def ask_payment_method(total_amount):
+    """
+    Ask the user for their payment method after the total amount is calculated.
+    
+    Args:
+        total_amount (float): The total amount to be paid.
+    
+    Returns:
+        str: Payment method ('Card' or 'Cash').
+    """
+    print(f"\nYour total amount is: ${total_amount:.2f}")
+    while True:
+        payment_method = input("How would you like to pay? (Card/Cash): ").strip().lower()
+        if payment_method in ['card', 'cash']:
+            return payment_method
+        else:
+            print("Invalid input. Please enter 'Card' or 'Cash'.")
 
 
 def main():
@@ -98,14 +115,6 @@ def main():
     Main function for the ordering system. It loads the menu and stop list,
     displays categories and items, allows the user to place an order, and calculates
     the total price. The program continues until the user chooses to finish their order.
-
-    Steps:
-        - Load menu data and stop list.
-        - Display available categories and items.
-        - Allow the user to select items and check stock status.
-        - Calculate the total price of the order.
-        - Ask if the user wants to order more items.
-        - Display the final total and thank the user.
     """
     menu_file = 'ORdering system  - Sheet1.csv'  # Correct menu CSV file name
     stop_list_file = 'stop_list_for_the_ordering_system.csv'  # Correct stop list CSV file name
@@ -156,8 +165,9 @@ def main():
             if more_order == 'yes':
                 break
             elif more_order == 'no':
-                print(f"\nYour total amount is: ${total_price:.2f}")
-                print("Thank you for your order!")
+                # After finalizing the order, ask for payment method
+                payment_method = ask_payment_method(total_price)
+                print(f"Thank you for your order! You chose to pay by {payment_method.capitalize()}.")
                 return
             else:
                 print("Please answer with 'Yes' or 'No' only.")
