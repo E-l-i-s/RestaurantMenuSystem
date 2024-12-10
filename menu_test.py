@@ -1,5 +1,5 @@
 import pandas as pd
-import re  # Для проверки правильности введенной электронной почты
+import re  # For validating email addresses
 
 def load_menu(file_path):
     """ 
@@ -128,6 +128,21 @@ def ask_email():
             print("Invalid email address. Please enter a valid email.")
 
 
+def ask_dining_option():
+    """
+    Ask the user whether they want to dine in or take the food to go.
+    
+    Returns:
+        str: "Dine In" or "Takeaway" based on user's choice.
+    """
+    while True:
+        dining_option = input("Would you like to dine in or take the food to go? (Dine In/Takeaway): ").strip().lower()
+        if dining_option in ['dine in', 'takeaway']:
+            return dining_option.capitalize()
+        else:
+            print("Invalid input. Please enter 'Dine In' or 'Takeaway'.")
+
+
 def main():
     """
     Main function for the ordering system. It loads the menu and stop list,
@@ -144,6 +159,10 @@ def main():
     if menu_data.empty or not stop_list:
         print("Error: No menu or stop list data found. Exiting program.")
         return
+
+    # Ask user for dining option (Dine In or Takeaway)
+    dining_option = ask_dining_option()
+    print(f"\nYou chose to {dining_option}.")
 
     total_price = 0
     while True:
@@ -192,6 +211,7 @@ def main():
                 # Show order confirmation
                 print(f"Thank you for your order! You chose to pay by {payment_method.capitalize()}.")
                 print(f"A receipt will be sent to {email}.")
+                print(f"Your order is ready for {dining_option.lower()}.")
                 return
             else:
                 print("Please answer with 'Yes' or 'No' only.")
