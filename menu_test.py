@@ -1,5 +1,8 @@
 import pandas as pd
 import re  # For validating email addresses
+from datetime import datetime
+import os
+from utils import load_menu, load_stop_list, save_to_csv, save_order_to_csv
 
 def load_menu(file_path):
     """ 
@@ -151,6 +154,7 @@ def main():
     """
     menu_file = 'ORdering system  - Sheet1.csv'  # Correct menu CSV file name
     stop_list_file = 'stop_list_for_the_ordering_system.csv'  # Correct stop list CSV file name
+    order_file = 'orders.csv'  # CSV file to store orders
 
     # Load menu data and stop list
     menu_data = load_menu(menu_file)
@@ -196,6 +200,15 @@ def main():
         # Add price of selected item to total
         total_price += selected_item['Price']
 
+        # Save order to CSV
+        order_data = {
+            'Item Name': item_name,
+            'Size': selected_item['Size'] if pd.notna(selected_item['Size']) else 'N/A',
+            'Price': selected_item['Price'],
+            'Dining Option': dining_option
+        }
+        save_order_to_csv(order_data, order_file)
+
         # Ask if the user wants to order more
         while True:
             more_order = input("Is there anything else you want to order? (Yes/No): ").strip().lower()
@@ -218,9 +231,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-#take away or dine 
-#email adress
-#Cash or card
