@@ -1,6 +1,6 @@
 import pandas as pd
 import re  # For validating email addresses
-from datetime import datetime
+import datetime
 import os
 from utils import load_menu, load_stop_list, save_to_csv, save_order_to_csv
 
