@@ -25,7 +25,6 @@ def load_menu(file_path):
         print(f"Unexpected error loading menu: {e}")
         return pd.DataFrame()
 
-
 def load_stop_list(file_path):
     """ 
     Loads a list of out-of-stock items from a CSV file.
@@ -34,7 +33,7 @@ def load_stop_list(file_path):
         file_path (str): Path to the CSV file.
     
     Returns:
-        list: List of out-of-stock item names, or an empty list if an error occurs.
+        list: List of out-of-stock items, or an empty list if an error occurs.
     """
     try:
         stop_list = pd.read_csv(file_path)
@@ -51,7 +50,6 @@ def load_stop_list(file_path):
         print(f"Unexpected error loading stop list: {e}")
         return []
 
-
 def show_categories(menu_data):
     """ 
     Display unique categories from a menu data dataframe.
@@ -67,7 +65,6 @@ def show_categories(menu_data):
     for i, category in enumerate(categories, 1):
         print(f"{i}. {category}")
     return categories
-
 
 def show_items_in_category(menu_data, selected_category, stop_list):
     """ 
@@ -94,10 +91,9 @@ def show_items_in_category(menu_data, selected_category, stop_list):
         index += 1
     return items_in_category
 
-
 def ask_payment_method(total_amount):
     """
-    Ask the user for their payment method after the total amount is calculated.
+    Ask the user for their payment method and handle cash payments with change.
     
     Args:
         total_amount (float): The total amount to be paid.
@@ -108,11 +104,23 @@ def ask_payment_method(total_amount):
     print(f"\nYour total amount is: ${total_amount:.2f}")
     while True:
         payment_method = input("How would you like to pay? (Card/Cash): ").strip().lower()
-        if payment_method in ['card', 'cash']:
+        if payment_method == 'card':
             return payment_method
+        elif payment_method == 'cash':
+            # Handle cash payment
+            while True:
+                cash_amount = float(input("Please enter the amount of cash you're paying with: $"))
+                if cash_amount >= total_amount:
+                    change = cash_amount - total_amount
+                    if change > 0:
+                        print(f"Thank you! Your change is: ${change:.2f}.")
+                    else:
+                        print("Thank you for your payment!")
+                    return payment_method
+                else:
+                    print(f"The amount you entered is not sufficient. You owe ${total_amount - cash_amount:.2f} more.")
         else:
             print("Invalid input. Please enter 'Card' or 'Cash'.")
-
 
 def ask_email():
     """
@@ -130,7 +138,6 @@ def ask_email():
         else:
             print("Invalid email address. Please enter a valid email.")
 
-
 def ask_dining_option():
     """
     Ask the user whether they want to dine in or take the food to go.
@@ -144,7 +151,6 @@ def ask_dining_option():
             return dining_option.capitalize()
         else:
             print("Invalid input. Please enter 'Dine In' or 'Takeaway'.")
-
 
 def main():
     """
