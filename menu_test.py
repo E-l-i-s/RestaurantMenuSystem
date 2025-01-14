@@ -175,6 +175,7 @@ def main():
     print(f"\nYou chose to {dining_option}.")
 
     total_price = 0
+    ordered_items = []
     while True:
         # Show available categories
         categories = show_categories(menu_data)
@@ -205,6 +206,7 @@ def main():
 
         # Add price of selected item to total
         total_price += selected_item['Price']
+        ordered_items.append(item_name)
 
         # Save order to CSV
         order_data = {
@@ -221,17 +223,27 @@ def main():
             if more_order == 'yes':
                 break
             elif more_order == 'no':
-                # After finalizing the order, ask for payment method
-                payment_method = ask_payment_method(total_price)
+                # Show ordered items and ask for confirmation
+                print(f"\nYou ordered: {', '.join(ordered_items)}.")
+                while True:
+                    confirm_order = input("Would you like to confirm this order? (Yes/No): ").strip().lower()
+                    if confirm_order == 'yes':
+                        # After finalizing the order, ask for payment method
+                        payment_method = ask_payment_method(total_price)
 
-                # Ask for user's email
-                email = ask_email()
+                        # Ask for user's email
+                        email = ask_email()
 
-                # Show order confirmation
-                print(f"Thank you for your order! You chose to pay by {payment_method.capitalize()}.")
-                print(f"A receipt will be sent to {email}.")
-                print(f"Your order is ready for {dining_option.lower()}.")
-                return
+                        # Show order confirmation
+                        print(f"Thank you for your order! You chose to pay by {payment_method.capitalize()}.")
+                        print(f"A receipt will be sent to {email}.")
+                        print(f"Your order is ready for {dining_option.lower()}.")
+                        return
+                    elif confirm_order == 'no':
+                        print("Order canceled. Thank you!")
+                        return
+                    else:
+                        print("Invalid input. Please enter 'Yes' or 'No'.")
             else:
                 print("Please answer with 'Yes' or 'No' only.")
 
