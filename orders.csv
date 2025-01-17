@@ -1,7 +1,7 @@
-Item Name,Size,Price,Dining Option
-Grilled Chicken,Medium,35,Dine in
-Fish & Chips,Medium,35,Dine in
-Borscht,Small,15,Dine in
-Garlic Bread,Small,9,Takeaway
-Fresh Juice,Large,20,Takeaway
-Grilled Vegetables,Small,16,Dine in
+Item Name,Size,Price,amount,Dining Option
+Grilled Chicken,Medium,35,1,Dine in
+Fish & Chips,Medium,35,1,Dine in
+Borscht,Small,15,1,Dine in
+Garlic Bread,Small,9,1,Takeaway
+Fresh Juice,Large,20,1,Takeaway
+Grilled Vegetables,Small,16,1,Dine in
