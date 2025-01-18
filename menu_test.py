@@ -58,7 +58,7 @@ def ask_email():
     """Ask the user for their email address and validate it."""
     while True:
         email = input("Enter your email address: ").strip()
-        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zAZ0-9-]+\.[a-zA-Z0-9-.]+$'
         if re.match(email_regex, email):
             return email
         else:
@@ -72,6 +72,17 @@ def ask_dining_option():
             return option.capitalize()
         else:
             print("Invalid choice. Please choose 'Dine In' or 'Takeaway'.")
+
+def ask_yes_no(question):
+    """Ask a yes/no question and validate the input."""
+    while True:
+        answer = input(f"{question} (Yes/No): ").strip().lower()
+        if answer == 'yes':
+            return True
+        elif answer == 'no':
+            return False
+        else:
+            print("Invalid input! Please enter 'Yes' or 'No'.")
 
 def main():
     """Main function to handle the ordering process."""
@@ -146,14 +157,12 @@ def main():
                 print("Please enter a valid number.")
 
         # Check if user wants to order more
-        more_order = input("Would you like to order more? (Yes/No): ").strip().lower()
-        if more_order == 'no':
+        if not ask_yes_no("Would you like to order more?"):
             break
-
+        
     # Show order summary and confirm
     print(f"\nYour order: {', '.join(ordered_items)}.")
-    confirm = input("Would you like to confirm this order? (Yes/No): ").strip().lower()
-    if confirm == 'yes':
+    if ask_yes_no("Would you like to confirm this order?"):
         payment_method = ask_payment_method(total_price)
         email = ask_email()
         print(f"\nThank you! Your order is confirmed. A receipt will be sent to {email}.")
