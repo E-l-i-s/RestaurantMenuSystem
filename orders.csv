@@ -1,7 +1,37 @@
 Item Name,Size,Price,amount,Dining Option
-Grilled Chicken,Medium,35,1,Dine in
-Fish & Chips,Medium,35,1,Dine in
 Borscht,Small,15,1,Dine in
-Garlic Bread,Small,9,1,Takeaway
-Fresh Juice,Large,20,1,Takeaway
+Cheesecake,Whole,4,1,Takeaway
+Fresh Juice,Small,15,1,Takeaway
+Fruit Salad,Large,10,1,Dine in
+Steamed Vegetables,Medium,17,1,Takeaway
+Fresh Juice,Small,15,1,Dine in
+Fruit Salad,Small,13,1,Dine in
+Borscht,dmsll,15,1,Dine in
+Espresso,Small,10,1,Takeaway
+Tomato Soup,Small,13,1,Dine in
+Fish & Chips,Medium,35,1,Dine in
+Grilled Vegetables,Small,16,1,Takeaway
+Borscht,Small,15,1,Takeaway
+Borscht,Small,15,1,Takeaway
+Borscht,Small,15,1,Takeaway
+Borscht,Small,15,1,Takeaway
+Borscht,Small,15,1,Takeaway
 Grilled Vegetables,Small,16,1,Dine in
+Hummus with Pita,Small,14,1,Dine in
+Onion Rings,Medium,15,1,Dine in
+Grilled Vegetables,Small,16,1,Dine in
+Fresh Juice,Large,20,1,Dine in
+Grilled Vegetables,Small,16,1,Dine in
+Fresh Juice,Small,15,1,Dine in
+Veggie Burger,Medium,25,1,Takeaway
+Borscht,Small,15,1,Dine in
+Caesar Salad,Small,15,4,Dine in
+Caprese Salad,Small,17,5,Takeaway
+Spaghetti Carbonara,Medium,30,2,Dine in
+Coleslaw,Small,10,2,Takeaway
+Fruit Salad,Large,10,1,Takeaway
+Beef Steak,Medium,60,2,Dine in
+Shrimp Pasta,Medium,35,2,Dine in
+Stuffed Mushrooms,Small,16,2,Dine in
+Chicken Kiev,Medium,40,1,Dine in
+Grilled Chicken,Medium,35,2,Dine in
