@@ -57,19 +57,27 @@ class StockManager:
         """
         self.menu_data.to_csv(self.menu_file, index=False)
 
-class Order:
+
+class Order(StockManager):
     """
     Represents a customer order, encapsulating item selections, quantities, and total price.
+    Inherits stock management functionality from StockManager.
     """
 
-    def __init__(self):
-        """Initialize an empty order."""
+    def __init__(self, menu_file):
+        """
+        Initialize an empty order and inherit StockManager functionalities.
+        
+        Args:
+            menu_file (str): Path to the menu CSV file.
+        """
+        super().__init__(menu_file)
         self.items = []
         self.total_price = 0
 
     def add_item(self, item_name, price, quantity):
         """
-        Add an item to the order.
+        Add an item to the order if it's available in stock.
 
         Args:
             item_name (str): Name of the item.
@@ -79,59 +87,11 @@ class Order:
         Returns:
             None
         """
-        self.items.append({'Item': item_name, 'Price': price, 'Quantity': quantity})
-        self.total_price += price * quantity
+        if self.is_item_available(item_name, quantity):
+            self.items.append({'Item': item_name, 'Price': price, 'Quantity': quantity})
+            self.total_price += price * quantity
+            self.update_stock(item_name, quantity)
+            print(f"Added {quantity} x {item_name} to your order.")
+        else:
+            print(f"Sorry, {item_name} is not available in the requested quantity.")
 
-    def show_order_summary(self):
-        """
-        Display the order summary.
-
-        Returns:
-            None
-        """
-        print("\nOrder Summary:")
-        for item in self.items:
-            print(f"{item['Item']} (x{item['Quantity']}): ${item['Price'] * item['Quantity']:.2f}")
-        print(f"Total Price: ${self.total_price:.2f}")
-
-class User:
-    """
-    Represents a user, including their email and dining preferences.
-    """
-
-    def __init__(self, email=None, dining_option=None):
-        """Initialize the user with optional email and dining preferences."""
-        self.email = email
-        self.dining_option = dining_option
-
-    def set_email(self, email):
-        """Set the user's email."""
-        self.email = email
-
-    def set_dining_option(self, option):
-        """Set the user's dining option."""
-        self.dining_option = option
-
-    def get_user_details(self):
-        """Return user details as a dictionary."""
-        return {'Email': self.email, 'Dining Option': self.dining_option}
-
-# Example usage of the improved OOP structure
-if __name__ == "__main__":
-    stock_manager = StockManager('menu.csv')
-    user = User()
-    order = Order()
-
-    # Simulate setting user details
-    user.set_email("test@example.com")
-    user.set_dining_option("Dine In")
-
-    # Simulate adding items to the order
-    if stock_manager.is_item_available("Pizza", 2):
-        order.add_item("Pizza", 10.99, 2)
-        stock_manager.update_stock("Pizza", 2)
-
-    # Save updated stock and show order summary
-    stock_manager.save_updated_menu()
-    order.show_order_summary()
-    print(f"User Details: {user.get_user_details()}")
